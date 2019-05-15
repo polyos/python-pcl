@@ -66,11 +66,11 @@ cdef class IterativeClosestPoint:
         # cdef pcl_reg.Registration[cpp.PointXYZ, cpp.PointXYZ].Matrix4f mat
         cdef Matrix4f mat
         mat = reg.getFinalTransformation()
-        cdef np.ndarray[dtype=np.float32_t, ndim=2, mode='fortran'] transf
-        cdef np.float32_t *transf_data
+        cdef np.ndarray[dtype=np.float64_t, ndim=2, mode='fortran'] transf
+        cdef np.float64_t *transf_data
         
-        transf = np.empty((4, 4), dtype=np.float32, order='fortran')
-        transf_data = <np.float32_t *>np.PyArray_DATA(transf)
+        transf = np.empty((4, 4), dtype=np.float64, order='fortran')
+        transf_data = <np.float64_t *>np.PyArray_DATA(transf)
         
         for i in range(16):
             transf_data[i] = mat.data()[i]

@@ -38,7 +38,7 @@ cdef class OctreePointCloudSearch(OctreePointCloud):
         """
         cdef cnp.npy_intp n_points = pc.size
         cdef cnp.ndarray[float, ndim=2] sqdist = np.zeros((n_points, k),
-                                                          dtype=np.float32)
+                                                          dtype=np.float64)
         cdef cnp.ndarray[int, ndim=2] ind = np.zeros((n_points, k),
                                                      dtype=np.int32)
 
@@ -52,7 +52,7 @@ cdef class OctreePointCloudSearch(OctreePointCloud):
         at pc[index]. Results are in ndarrays, size (k)
         Returns: (k_indices, k_sqr_distances)
         """
-        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] ind = np.zeros(k, dtype=np.int32)
 
         self._nearest_k(pc, index, k, ind, sqdist)
@@ -92,7 +92,7 @@ cdef class OctreePointCloudSearch(OctreePointCloud):
             k_sqr_distances.resize(max_nn)
         
         cdef int k = (<pcloct.OctreePointCloudSearch_t*>self.me).radiusSearch(to_point_t(point), radius, k_indices, k_sqr_distances, max_nn)
-        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] np_k_indices = np.zeros(k, dtype=np.int32)
         for i in range(k):
             np_k_sqr_distances[i] = k_sqr_distances[i]
@@ -157,7 +157,7 @@ cdef class OctreePointCloudSearch(OctreePointCloud):
 #         k = 10
 #         cdef cnp.npy_intp n_points = pc.size
 #         cdef cnp.ndarray[float, ndim=2] sqdist = np.zeros((n_points, k),
-#                                                           dtype=np.float32)
+#                                                           dtype=np.float64)
 #         cdef cnp.ndarray[int, ndim=2] ind = np.zeros((n_points, k),
 #                                                      dtype=np.int32)
 # 
@@ -257,7 +257,7 @@ cdef class OctreePointCloudSearch_PointXYZI(OctreePointCloud_PointXYZI):
             k_indices.resize(max_nn)
             k_sqr_distances.resize(max_nn)
         cdef int k = (<pcloct.OctreePointCloudSearch_PointXYZI_t*>self.me).radiusSearch(to_point2_t(point), radius, k_indices, k_sqr_distances, max_nn)
-        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] np_k_indices = np.zeros(k, dtype=np.int32)
         for i in range(k):
             np_k_sqr_distances[i] = k_sqr_distances[i]
@@ -339,7 +339,7 @@ cdef class OctreePointCloudSearch_PointXYZRGB(OctreePointCloud_PointXYZRGB):
             k_indices.resize(max_nn)
             k_sqr_distances.resize(max_nn)
         cdef int k = (<pcloct.OctreePointCloudSearch_PointXYZRGB_t*>self.me).radiusSearch(to_point3_t(point), radius, k_indices, k_sqr_distances, max_nn)
-        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] np_k_indices = np.zeros(k, dtype=np.int32)
         for i in range(k):
             np_k_sqr_distances[i] = k_sqr_distances[i]
@@ -421,7 +421,7 @@ cdef class OctreePointCloudSearch_PointXYZRGBA(OctreePointCloud_PointXYZRGBA):
             k_indices.resize(max_nn)
             k_sqr_distances.resize(max_nn)
         cdef int k = (<pcloct.OctreePointCloudSearch_PointXYZRGBA_t*>self.me).radiusSearch(to_point4_t(point), radius, k_indices, k_sqr_distances, max_nn)
-        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] np_k_sqr_distances = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] np_k_indices = np.zeros(k, dtype=np.int32)
         for i in range(k):
             np_k_sqr_distances[i] = k_sqr_distances[i]

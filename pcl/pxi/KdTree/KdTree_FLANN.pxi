@@ -27,7 +27,7 @@ cdef class KdTreeFLANN:
         """
         cdef cnp.npy_intp n_points = pc.size
         cdef cnp.ndarray[float, ndim=2] sqdist = np.zeros((n_points, k),
-                                                          dtype=np.float32)
+                                                          dtype=np.float64)
         cdef cnp.ndarray[int, ndim=2] ind = np.zeros((n_points, k),
                                                      dtype=np.int32)
 
@@ -42,7 +42,7 @@ cdef class KdTreeFLANN:
         at pc[index]. Results are in ndarrays, size (k)
         Returns: (k_indices, k_sqr_distances)
         """
-        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] ind = np.zeros(k, dtype=np.int32)
 
         self._nearest_k(pc, index, k, ind, sqdist)
@@ -74,7 +74,7 @@ cdef class KdTreeFLANN:
         k = max_nn
         cdef cnp.npy_intp n_points = pc.size
         cdef cnp.ndarray[float, ndim=2] sqdist = np.zeros((n_points, k),
-                                                          dtype=np.float32)
+                                                          dtype=np.float64)
         cdef cnp.ndarray[int, ndim=2] ind = np.zeros((n_points, k),
                                                      dtype=np.int32)
 
@@ -123,7 +123,7 @@ cdef class KdTreeFLANN_PointXYZI:
         """
         cdef cnp.npy_intp n_points = pc.size
         cdef cnp.ndarray[float, ndim=2] sqdist = np.zeros((n_points, k),
-                                                          dtype=np.float32)
+                                                          dtype=np.float64)
         cdef cnp.ndarray[int, ndim=2] ind = np.zeros((n_points, k),
                                                      dtype=np.int32)
 
@@ -138,7 +138,7 @@ cdef class KdTreeFLANN_PointXYZI:
         at pc[index]. Results are in ndarrays, size (k)
         Returns: (k_indices, k_sqr_distances)
         """
-        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] ind = np.zeros(k, dtype=np.int32)
 
         self._nearest_k(pc, index, k, ind, sqdist)
@@ -187,7 +187,7 @@ cdef class KdTreeFLANN_PointXYZRGB:
         """
         cdef cnp.npy_intp n_points = pc.size
         cdef cnp.ndarray[float, ndim=2] sqdist = np.zeros((n_points, k),
-                                                          dtype=np.float32)
+                                                          dtype=np.float64)
         cdef cnp.ndarray[int, ndim=2] ind = np.zeros((n_points, k),
                                                      dtype=np.int32)
 
@@ -202,7 +202,7 @@ cdef class KdTreeFLANN_PointXYZRGB:
         at pc[index]. Results are in ndarrays, size (k)
         Returns: (k_indices, k_sqr_distances)
         """
-        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] ind = np.zeros(k, dtype=np.int32)
 
         self._nearest_k(pc, index, k, ind, sqdist)
@@ -251,7 +251,7 @@ cdef class KdTreeFLANN_PointXYZRGBA:
         """
         cdef cnp.npy_intp n_points = pc.size
         cdef cnp.ndarray[float, ndim=2] sqdist = np.zeros((n_points, k),
-                                                          dtype=np.float32)
+                                                          dtype=np.float64)
         cdef cnp.ndarray[int, ndim=2] ind = np.zeros((n_points, k),
                                                      dtype=np.int32)
 
@@ -266,7 +266,7 @@ cdef class KdTreeFLANN_PointXYZRGBA:
         at pc[index]. Results are in ndarrays, size (k)
         Returns: (k_indices, k_sqr_distances)
         """
-        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float32)
+        cdef cnp.ndarray[float] sqdist = np.zeros(k, dtype=np.float64)
         cdef cnp.ndarray[int] ind = np.zeros(k, dtype=np.int32)
 
         self._nearest_k(pc, index, k, ind, sqdist)

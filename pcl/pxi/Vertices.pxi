@@ -40,7 +40,7 @@ cdef class Vertices:
     @cython.boundscheck(False)
     def from_array(self, cnp.ndarray[cnp.int_t, ndim=1] arr not None):
         """
-        Fill this object from a 2D numpy array (float32)
+        Fill this object from a 2D numpy array (float64)
         """
         cdef cnp.npy_intp npts = arr.shape[0]
         
@@ -51,14 +51,14 @@ cdef class Vertices:
     @cython.boundscheck(False)
     def to_array(self):
         """
-        Return this object as a 2D numpy array (float32)
+        Return this object as a 2D numpy array (float64)
         """
         cdef float index
         cdef cnp.npy_intp n = self.thisptr().vertices.size()
         cdef cnp.ndarray[cnp.int, ndim=1, mode="c"] result
         cdef cpp.Vertices *p
         
-        result = np.empty((n, 1), dtype=np.float32)
+        result = np.empty((n, 1), dtype=np.float64)
         for i in range(n):
             result[i, 0] = self.thisptr().vertices.at(i)
         

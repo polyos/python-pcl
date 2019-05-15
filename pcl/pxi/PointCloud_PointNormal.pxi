@@ -68,9 +68,9 @@ cdef class PointCloud_PointNormal:
         return type(self), (self.to_array(),)
 
     @cython.boundscheck(False)
-    def from_array(self, cnp.ndarray[cnp.float32_t, ndim=2] arr not None):
+    def from_array(self, cnp.ndarray[cnp.float64_t, ndim=2] arr not None):
         """
-        Fill this object from a 2D numpy array (float32)
+        Fill this object from a 2D numpy array (float64)
         """
         assert arr.shape[1] == 7
         
@@ -87,14 +87,14 @@ cdef class PointCloud_PointNormal:
     @cython.boundscheck(False)
     def to_array(self):
         """
-        Return this object as a 2D numpy array (float32)
+        Return this object as a 2D numpy array (float64)
         """
         cdef float x,y,z
         cdef cnp.npy_intp n = self.thisptr().size()
-        cdef cnp.ndarray[cnp.float32_t, ndim=2, mode="c"] result
+        cdef cnp.ndarray[cnp.float64_t, ndim=2, mode="c"] result
         cdef cpp.PointNormal *p
         
-        result = np.empty((n, 7), dtype=np.float32)
+        result = np.empty((n, 7), dtype=np.float64)
         for i in range(n):
             p = idx.getptr(self.thisptr(), i)
             result[i, 0] = p.x

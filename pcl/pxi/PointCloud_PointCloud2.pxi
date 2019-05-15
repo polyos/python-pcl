@@ -34,7 +34,7 @@ cdef extern from "ProjectInliers.h":
 # XXX Is there a more elegant way to get these?
 # cdef Py_ssize_t _strides_pointcloud2[2]
 # cdef PointCloud2 _pc_tmp_pointcloud2 = PointCloud2(np.array([[1, 2, 3],
-#                                                [4, 5, 6]], dtype=np.float32))
+#                                                [4, 5, 6]], dtype=np.float64))
 # 
 # cdef cpp.PointCloud[pcl_pc2.PointCloud2] *p_pointcloud2 = _pc_tmp_pointcloud2.thisptr()
 # _strides_pointcloud2[0] = (  <Py_ssize_t><void *>idx.getptr(p_pointcloud2, 1)
@@ -138,9 +138,9 @@ cdef class PointCloud2:
             cdef cpp.Vector4f origin = self.thisptr().sensor_origin_
             cdef float *data = origin.data()
             return np.array([data[0], data[1], data[2], data[3]],
-                            dtype=np.float32)
+                            dtype=np.float64)
 
-        def __set__(self, cnp.ndarray[cnp.float32_t, ndim=1] new_origin):
+        def __set__(self, cnp.ndarray[cnp.float64_t, ndim=1] new_origin):
             self.thisptr().sensor_origin_ = cpp.Vector4f(
                     new_origin[0],
                     new_origin[1],
@@ -151,9 +151,9 @@ cdef class PointCloud2:
         def __get__(self):
             # NumPy doesn't have a quaternion type, so we return a 4-vector.
             cdef cpp.Quaternionf o = self.thisptr().sensor_orientation_
-            return np.array([o.w(), o.x(), o.y(), o.z()], dtype=np.float32)
+            return np.array([o.w(), o.x(), o.y(), o.z()], dtype=np.float64)
         
-        def __set__(self, cnp.ndarray[cnp.float32_t, ndim=1] new_orient):
+        def __set__(self, cnp.ndarray[cnp.float64_t, ndim=1] new_orient):
             self.thisptr().sensor_orientation_ = cpp.Quaternionf(
                     new_orient[0],
                     new_orient[1],
@@ -161,9 +161,9 @@ cdef class PointCloud2:
                     new_orient[3])
 
     @cython.boundscheck(False)
-    def from_array(self, cnp.ndarray[cnp.float32_t, ndim=2] arr not None):
+    def from_array(self, cnp.ndarray[cnp.float64_t, ndim=2] arr not None):
         """
-        Fill this object from a 2D numpy array (float32)
+        Fill this object from a 2D numpy array (float64)
         """
         assert arr.shape[1] == 3
         
@@ -205,14 +205,14 @@ cdef class PointCloud2:
     @cython.boundscheck(False)
     def to_array(self):
         """
-        Return this object as a 2D numpy array (float32)
+        Return this object as a 2D numpy array (float64)
         """
         cdef float x,y,z
         cdef cnp.npy_intp n = self.thisptr().size()
-        cdef cnp.ndarray[cnp.float32_t, ndim=2, mode="c"] result
+        cdef cnp.ndarray[cnp.float64_t, ndim=2, mode="c"] result
         cdef pcl_pc2.PointCloud2 *p
         
-        result = np.empty((n, 3), dtype=np.float32)
+        result = np.empty((n, 3), dtype=np.float64)
         for i in range(n):
             pass
             # p = idx.getptr(self.thisptr(), i)
